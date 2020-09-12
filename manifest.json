@@ -1,0 +1,16 @@
+{
+    "name": "PennApps Project",
+    "version": "1.0",
+    "description": "Summarize medical articles",
+    "browser_action": {
+      "default_icon": "assets/icon.png",
+      "default_popup": "dialog.html"
+    },
+    "content_scripts": [
+      {
+        "js": ["script.js"]
+      }
+    ],
+    "manifest_version": 2
+  }
+  

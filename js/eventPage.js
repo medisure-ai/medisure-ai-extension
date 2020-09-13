@@ -1,4 +1,4 @@
-const openAIAPi = require("./index");
+// const openAIAPi = require("./index");
 
 var contextMenuItem = {
   id: "summarize",
@@ -39,13 +39,13 @@ chrome.contextMenus.onClicked.addListener(function (clickData) {
                 //summarize the text
                 summary = summarizeText(data.allText);
                 //show the summary
-                showSummary(summary, clickData, preferences);
+                // showSummary(summary, clickData, preferences);
                 console.log("test");
                 //if user has text to speech enabled
                 if (preferences.tts) {
-                  chrome.tts.speak(summary);
+                  // chrome.tts.speak(summary);
                 }
-                openAIAPi(data.allText);
+                summarizeText(data.allText);
               });
             });
           }
@@ -53,10 +53,10 @@ chrome.contextMenus.onClicked.addListener(function (clickData) {
       } else {
         //get the selectedData in summary
         summary = summarizeText(clickData.selectionText);
-        showSummary(summary, clickData, preferences);
+        // showSummary(summary, clickData, preferences);
         //if user has text to speech enabled
         if (preferences.tts) {
-          chrome.tts.speak(summary);
+          // chrome.tts.speak(summary);
         }
       }
     }
@@ -95,8 +95,35 @@ function showSummary(summary, clickData, preferences) {
   }
 }
 
+function summarizeText(text, clickData, preferences, useCallback) {
+  console.log("Summarizing text")
+  const req = new XMLHttpRequest();
+  const baseUrl = "https://api.openai.com/v1/engines/davinci/completions";
+
+  req.open("POST", baseUrl, false);
+  req.setRequestHeader("Authorization", "Bearer sk-0UnXMOC0I0KLxk3Qklf23BEov291dAAKhF106zk3");
+  req.setRequestHeader("Content-Type", "application/json");
+  if (useCallback) {
+    req.onloadend = function(e) {
+      // showSummary(summary, clickData, preferences);
+    }
+  }
+  const result = req.send({
+    engine: 'davinci',
+    prompt: text,
+    maxTokens: 5,
+    temperature: 0.9,
+    topP: 1,
+    n: 1,
+    stream: false,
+    stop: ['\n', "testing"]
+  });
+  console.log(result);
+}
+
 //Summarizes text
-function summarizeText(text) {
+function _summarizeText(text) {
+
   //Summarization library used from https://github.com/wkallhof/js-summarize. Thanks to wkallhof!
   var summary = "";
   var summarizer = new JsSummarize({

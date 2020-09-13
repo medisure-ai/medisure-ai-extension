@@ -1,5 +1,3 @@
-const openAIAPi = require("./index");
-
 var contextMenuItem = {
   id: "summarize",
   title: "Summarize",
@@ -40,12 +38,10 @@ chrome.contextMenus.onClicked.addListener(function (clickData) {
                 summary = summarizeText(data.allText);
                 //show the summary
                 showSummary(summary, clickData, preferences);
-                console.log("test");
                 //if user has text to speech enabled
                 if (preferences.tts) {
                   chrome.tts.speak(summary);
                 }
-                openAIAPi(data.allText);
               });
             });
           }

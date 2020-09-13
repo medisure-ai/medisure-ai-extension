@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "GPT3 Summarizer",
+  "name": "Medisure.ai",
   "version": "1.0",
-  "description": "Summarizes selected text using GPT3",
+  "description": "Simplies Medical Insurance",
   "icons": {
     "16": "images/sum18.png",
     "24": "images/sum24.svg"
@@ -10,7 +10,7 @@
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": "images/sum18.png",
-    "default_title": "Summarize Text"
+    "default_title": "Summarize Insurance"
   },
   "permissions": [
     "tabs",
